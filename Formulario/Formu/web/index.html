@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+      <div class="contenedor">
+        <h1 class="tf" id="titulo_form">Productos</h1>
+
+        <div id="caja">
+
+            <form id="form" action="" class="formu" autocomplete="off" novalidate>
+
+                <label for="Product">Producto</label>
+                <select class="res" name="Product" id="select" required>
+                    <option value="Papa">Awita</option>
+                    <option value="Zanahoria">Coco</option>
+                    <option value="Yuca">Yuca</option>
+                    <option value="Pepino">Pepino</option>
+                    <option value="Platano">Platano</option>
+                </select>
+
+                <label for="Cant">Cantidad</label>
+                <input class="res" type="number" name="Cant" id="cantidad" maxlength="10" required>
+
+                <label for="Precio">Precio</label>
+                <input class="res" type="number" step="0.01" name="Precio" id="precio" required>
+                
+                <label for="Dir">Dirección</label>
+                <input class="res" type="text" name="Dir" id="direccion" required>
+
+                <label for="Fecha">Fecha</label>
+                <input class="res" type="date" name="Fecha" id="fecha" required>
+
+                <button type="submit" id="bf">Enviar</button>
+                <button type="button" id="bc" style="display: none;">cancelar</button>
+                <input type="hidden" name="id" id="id">
+            </form>
+        </div>
+    </div>
+
+    <div class="ver_productos">
+        <h2 id="titulo_ver_p">Productos Guardados</h2>
+        <button id="Productos" type="button">Ver</button>
+        <div id="lista_productos"></div>
+    </div>
+
+  <script>
+        const crear = document.querySelector('.formu')
+        const btnP = document.getElementById('Productos')
+        const contP = document.getElementById('lista_productos')
+        const ft = document.getElementById('titulo_form')
+        const bf = document.getElementById('bf')
+        const bc = document.getElementById('bc')
+
+        crear.addEventListener('submit', async (e)=>{
+            e.preventDefault()
+            try{
+                const datos=new FormData(e.target)
+                const objeto=Object.fromEntries(datos.entries())
+                const id=objeto.id
+                const url = id ? `/actualizar/${id}`:"/crear" 
+                const method = id ? "PUT" : "POST"
+
+                const res=await fetch(url, {
+                    method:method,
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify(objeto)
+                })
+                if(res.ok){
+                    const texto=await res.text()
+                    alert(texto)
+                    resetForm();
+                    Leer()
+                }
+
+            }
+            catch(error){
+                console.error('Tu error es: ', error)
+            }
+        })
+
+        const Leer= async()=>{
+            try{
+                const res = await fetch("/leer")
+                if(res.ok){
+                    const producto=await res.json()
+                    mostrarP(producto)
+                }
+            }
+            catch(error){
+                console.error('Tu error es: ', error)
+            }
+        }
+
+        const mostrarP=(productos)=>{
+            contP.innerHTML=""
+            const fragmento=document.createDocumentFragment()
+            productos.forEach(cosa => {
+                const pedazo = document.createElement("div")
+                pedazo.className="producto-item"
+                pedazo.innerHTML=`
+                <div class="producto-info">
+                Producto: ${cosa.producto}<br>
+                Cantidad: ${cosa.cantidad}<br>
+                Precio: ${cosa.precio}<br>
+                Direccion: ${cosa.direccion}<br>
+                Fecha: ${cosa.fecha}<br>
+                </div>
+                <br>
+                <div class="botones">
+                    <button onclick="editarP('${cosa._id}')">Editar</button>
+                    <button onclick="eliminarP('${cosa._id}')">Eliminar</button>
+                </div>
+                <hr>
+                `
+
+                fragmento.appendChild(pedazo)
+            });
+
+            contP.appendChild(fragmento)
+        }
+
+        const editarP = async(id)=>{
+            try{
+                const res = await fetch("/leer")
+                if(res.ok){
+                    const productos = await res.json()
+                    const product = productos.find(p=>p._id==id)
+                    if(product){
+                        document.getElementById('select').value=product.producto
+                        document.getElementById('cantidad').value=product.cantidad
+                        document.getElementById('precio').value=product.precio
+                        document.getElementById('direccion').value=product.direccion
+                        document.getElementById('fecha').value=product.fecha.split('T')[0]
+                        document.getElementById('id').value=product._id
+
+                        ft.textContent="Actualizar pedido"
+                        bf.textContent="Actualizar"
+                        bc.style.display='inline-block'
+                        crear.scrollIntoView({behavior:"smooth"})
+                    }
+                }
+            }
+            catch(error){
+                console.error('Tu error es: ', error)
+            }
+        }
+
+        const eliminarP = async (id)=>{
+            if(confirm('¿Estás seguro?')){
+                try{
+                    const res = await fetch(`/eliminar/${id}`,{
+                        method:'DELETE'
+                    })
+                    if(res.ok){
+                        const texto = await res.text()
+                        alert(texto)
+                        Leer()
+                    }
+                }
+                catch(error){
+                    console.error('Tu error es: ', error)
+                }
+            }
+        }
+
+        const resetForm=()=>{
+            crear.reset()
+            document.getElementById('id').value=""
+            ft.textContent="productos"
+            bf.textContent="Enviar"
+            bc.style.display='none'
+        }
+
+        btnP.addEventListener("click", Leer)
+        bc.addEventListener("click", resetForm)
+    </script>
+   
+</body>
+</html>

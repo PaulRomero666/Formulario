@@ -1,0 +1,148 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    background: linear-gradient(to right, #dfe9f3, #ffffff);
+}
+
+.contenedor {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+}
+
+.tf {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.formu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-weight: 600;
+    color: #555;
+    font-size: 15px;
+}
+
+.res {
+    padding: 14px 16px;
+    border: 2px solid #d1d3d4;
+    border-radius: 50px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.res:focus {
+    border-color: #6c63ff;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
+#bf {
+    background: linear-gradient(135deg, #6c63ff, #4e54c8);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+#bf:hover {
+    background: linear-gradient(135deg, #4e54c8, #6c63ff);
+}
+
+.ver_productos {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+#Productos {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    transition: background 0.3s ease;
+}
+
+#Productos:hover {
+    background: linear-gradient(135deg, #218838, #28a745);
+}
+
+.producto-item {
+    border: 2px solid #eee;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: #fefefe;
+    transition: box-shadow 0.3s ease;
+}
+
+.producto-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.producto-into {
+    line-height: 1.6;
+    color: #444;
+    font-size: 15px;
+}
+
+.botones {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.botones button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.botones button:first-child {
+    background-color: #18ce79;
+    color: #212529;
+}
+
+.botones button:first-child:hover {
+    background-color: #e0a800;
+}
+
+.botones button:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+.botones button:last-child:hover {
+    background-color: #c82333;
+}

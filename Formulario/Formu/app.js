@@ -11,10 +11,10 @@ app.use(express.static('./Web'));
 const conect = mongoose.connection;
 mongoose.connect('mongodb+srv://Jaeger666_:1234@cluster0.qo6laex.mongodb.net/productos')
 conect.once('open',()=>{
-    console.log("Conexión a MongoDB exitosa")
+    console.log("Breve")
 })
 conect.on('error',(error)=>{
-    console.log("Error de conexión:", error)
+    console.log("Error:", error)
 })
 
 const productosShema = new mongoose.Schema({
@@ -76,12 +76,12 @@ app.put('/actualizar/:id', async(req, res)=>{
             return res.status(404).send("Producto no encontrado")
         }
         else{
-            res.status(200).send("Producto actualizado correctamente")
+            res.status(200).send("Producto actualizado ")
         }
     }
     catch(error){
         console.error(error)
-        res.status(500).send("Error al actualizar producto")
+        res.status(500).send("Error al actualizar")
     }
 })
 
@@ -95,7 +95,7 @@ app.delete('/eliminar/:id', async (req, res) => {
             return res.status(404).send("Producto no encontrado")
         }
         else{
-            res.status(200).send("Producto eliminado correctamente")
+            res.status(200).send("Producto eliminado")
         }
     }
     catch(error){

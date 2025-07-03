@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.formu{
+
+    margin-left: 500px;
+    align-items: center;
+    background-color: rgb(77, 77, 226);
+    flex-direction: column;
+    border-radius: 30px;
+    height: 300px;
+    width: 300px;
+    display: flex;   
+    justify-content: center;
+    box-shadow: black;
+    height: 300px;
+    width: 300px;
+}
+   
+label{
+    color: rgb(24, 29, 34);
+    font-size: 20px;
+}
+input{
+    border-radius: 50px;
+    width: 200px;
+    height: 30px;
+}
+option{
+    border: 50px;
+}
